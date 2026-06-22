@@ -18,7 +18,7 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-flex">
-                                <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;{{url('/')}}/assets/img/logo/logo_ests.png&quot;);background-repeat: no-repeat;    background-size: contain;background-position: center;filter: drop-shadow(3px 3px 4px black);"></div>
+                                <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;{{url('/')}}/assets/img/logo/images.jpg&quot;);background-repeat: no-repeat;    background-size: contain;background-position: center;filter: drop-shadow(3px 3px 4px black);"></div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
