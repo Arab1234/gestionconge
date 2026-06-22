@@ -35,8 +35,8 @@
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon"><img src="{{ url('/') }}/assets/img/logo/logo_ests.png"
-                            width="80" height="70" /></div>
+                    <div class="sidebar-brand-icon"><!-- <img src="{{ url('/') }}/assets/img/logo/logo_ests.png"
+                            width="80" height="70" /> --></div>
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
@@ -131,7 +131,7 @@
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Tous droit réservés © ESTS 2022</span></div>
+                    <div class="text-center my-auto copyright"><span>Tous droit réservés ©</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
