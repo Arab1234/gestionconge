@@ -69,8 +69,8 @@
                     <li class="nav-item"><a class="nav-link @yield('per-active')" href="{{ route('CP') }}"><i
                         class="fas fa-table"></i><span>Mes permissions</span></a></li>
                 </ul>
-                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
-                        id="sidebarToggle" type="button"></button></div>
+                <!-- <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0"
+                        id="sidebarToggle" type="button"></button></div> -->
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
