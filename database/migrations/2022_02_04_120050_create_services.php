@@ -18,7 +18,6 @@ class CreateServices extends Migration
             $table->string("Abr");
             $table->string("Libelle");
             $table->unsignedBigInteger("IdCS")->nullable();
-            $table->foreign("IdCS")->references("id")->on("users");
             $table->timestamps();
         });
     }
