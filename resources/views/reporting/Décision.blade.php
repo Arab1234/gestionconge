@@ -2,52 +2,119 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Décision</title>
+    <title>Décision de Congé</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #000;
+            margin: 40px;
+        }
+        .header-table {
+            width: 100%;
+            border-bottom: 2px solid #000;
+            margin-bottom: 30px;
+        }
+        .header-table td {
+            vertical-align: middle;
+            padding: 8px;
+        }
+        .ref { text-align: left; font-size: 12px; }
+        .date { text-align: right; font-size: 12px; }
+        h1 {
+            text-align: center;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 30px 0 5px;
+            text-decoration: underline;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+        .section {
+            text-align: justify;
+            padding: 0 20px;
+            line-height: 1.8;
+        }
+        .section p {
+            margin: 10px 0;
+        }
+        .article-title {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .divider {
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 25px 0;
+            letter-spacing: 3px;
+        }
+        .signature {
+            margin-top: 60px;
+            text-align: right;
+            padding-right: 40px;
+        }
+    </style>
 </head>
-<body style="font-family: 'Courier New', Courier, monospace">
-    <center>Royaume du maroc</center>
-    <table style="width: 100%">
-        <thead>
-            <tr>
-                <th style="text-align: left;
-                width: 33.33%;">D.A.F/D.A/S.G.A/N° : ...............</th>
-                <th style="width: 33.33%;"><img src="{{ url('/') }}/assets/img/logo/logo_ests.png"
-                    width="80" height="70" /></th>
-                <th style="text-align: center;
-                width: 33.33%;">RABAT LE :</th>
-            </tr>
-        </thead>
+<body>
+
+    <table class="header-table">
+        <tr>
+            <td class="ref">Réf. : ........................</td>
+            <td class="date">Le : {{ \Carbon\Carbon::now()->format('d/m/Y') }}</td>
+        </tr>
     </table>
-    <center>
-        <h2><b>DECISION</b></h2>
-        <h2><b>LE DIRECTEUR GENERALE DE L'ECOLE</b></h2>
-        <h2><b>SUPERIEURE DE TECHNOLOGIE DE SALE</b></h2>
-    </center>
-    <div style="text-align: justify;text-justify: inter-word;padding:20px;">
-    <p>Vu le Dahir n°1-94-433 du 18 Chaabane 1415 ( 20 Janvier 1995 ) portant
-        promulgation de loi n°37-94 portant ratification du décret-loi n°2-94-498
-        du 16 Rabii II 1415 ( 23 Septembre 1994) portant création de L'ECOLE SUPERIEURE DE TECHNOLOGIE DE SALE ;
-        </p>
-    <p>Vu le Décret n°2-12-662 du 13 Joumada I 1434( 25 mars 2013 ) modifiant et
-        complétant le décret n°2-94-763 du 21 Joumada II 1415( 25 novembre 1994 )
-        pris pour l'application du Décret-loi n°2-94-498 du 16 Rabii II 1415( 23
-        septembre 1994)portant création de L'ECOLE SUPERIEURE DE TECHNOLOGIE DE SALE ;
-        </p>
-    <p>Vu le statut du personnel ;<br><br>
-        Vu la demande de congé <b>{{$data->Libelle}}</b> présentée par l'intéressé(e) ;<br><br>
-        Vu l'avis favorable émis à cette demande ;<br><br>
-        Vu la Carte d'identité nationale n° <b>{{$data->CIN}}</b></p>
+
+    <h1>Décision de Congé</h1>
+    <p class="subtitle">Direction des Ressources Humaines</p>
+
+    <div class="section">
+
+        <p>Vu la demande de congé de type <b>{{ $data->Libelle }}</b> présentée par l'intéressé(e) ;</p>
+
+        <p>Vu l'avis favorable émis à cette demande ;</p>
+
+        <p>Vu la Carte d'Identité Nationale n° <b>{{ $data->CIN }}</b> ;</p>
+
+        <p>Vu le statut du personnel en vigueur ;</p>
+
     </div>
-    <center>
-        <b>DECIDE</b>
-    </center>
-    <div style="text-align: justify;text-justify: inter-word;padding:20px;">
-        <p><span style="text-decoration: underline;"><b>ARTICLE PREMIER :</b></span> A compter du <b>{{(Carbon\Carbon::createFromFormat('Y-m-d', $data->DateDébut))->format('d/m/Y')}}</b>, un congé <b>{{$data->Libelle}}</b> de(<b>{{$data->nbJour}}</b>) jours, à passer au Maroc ou à l'Etranger, est accordé à <b>M. {{$data->Nom}} {{$data->Prénom}}</b>.
-            </p>
-            <p><span style="text-decoration: underline;"><b>ARTICLE DEUX :</b></span> Le présent congé prendra fin le <b>{{(Carbon\Carbon::createFromFormat('Y-m-d', $data->DateDébut))->addDays($data->nbJour)->format('d/m/Y')}}</b> inclus.
-            </p>
-        </div>
+
+    <div class="divider">DÉCIDE</div>
+
+    <div class="section">
+
+        <p>
+            <span class="article-title">ARTICLE PREMIER :</span>
+            À compter du <b>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->DateDébut)->format('d/m/Y') }}</b>,
+            un congé de type <b>{{ $data->Libelle }}</b> d'une durée de <b>{{ $data->nbJour }}</b> jour(s)
+            est accordé à <b>M. / Mme. {{ $data->Nom }} {{ $data->Prénom }}</b>.
+        </p>
+
+        <p>
+            <span class="article-title">ARTICLE DEUX :</span>
+            Le présent congé prendra fin             le
+            <b>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $data->DateDébut)->addDays($data->nbJour - 1)->format('d/m/Y') }}</b>
+            inclus.
+        </p>
+
+        <p>
+            <span class="article-title">ARTICLE TROIS :</span>
+            L'intéressé(e) est tenu(e) de reprendre son poste à l'expiration du congé susvisé.
+            Toute prolongation devra faire l'objet d'une nouvelle demande dûment justifiée.
+        </p>
+
+    </div>
+
+    <div class="signature">
+        <p>Le Responsable des Ressources Humaines</p>
+        <br><br><br>
+        <p>Signature et cachet</p>
+    </div>
+
 </body>
 </html>
