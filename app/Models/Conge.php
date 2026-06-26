@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Conge extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'DateDébut', 'nbJour', 'VCS', 'VRH', 'IdType', 'IdPlan', 'IdUser',
+    ];
 }
