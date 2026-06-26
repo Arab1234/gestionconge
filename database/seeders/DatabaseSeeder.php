@@ -15,9 +15,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        // ---------------------------------------------------------------
-        // 1. LEAVE TYPES  (IDs are referenced in the controller by number)
-        // ---------------------------------------------------------------
+
         Typeconge::insert([
             ['Libelle' => 'Congé Annuel',        'created_at' => now(), 'updated_at' => now()], // id 1
             ['Libelle' => 'Congé Administratif', 'created_at' => now(), 'updated_at' => now()], // id 2
@@ -25,9 +23,7 @@ class DatabaseSeeder extends Seeder
             ['Libelle' => 'Congé Exceptionnel',  'created_at' => now(), 'updated_at' => now()], // id 4
         ]);
 
-        // ---------------------------------------------------------------
-        // 2. PERMISSIONS  (short-leave authorization types)
-        // ---------------------------------------------------------------
+
         Permission::insert([
             ['Libelle' => 'Autorisation 1/2 journée',      'nbJour' => 1],
             ['Libelle' => 'Autorisation 1 jour',            'nbJour' => 1],
@@ -40,22 +36,12 @@ class DatabaseSeeder extends Seeder
             ['Libelle' => 'Pèlerinage (Hajj)',              'nbJour' => 26],
         ]);
 
-        // ---------------------------------------------------------------
-        // 3. SERVICES  (created without IdCS to avoid circular FK)
-        // ---------------------------------------------------------------
 
-        // id=1 — Informatique
+
         $serviceIT = Service::create(['Abr' => 'IT',  'Libelle' => 'Informatique',        'IdCS' => null]);
-        // id=2 — RH (IMPORTANT: controller checks IdService == 2 for admin access)
         $serviceRH = Service::create(['Abr' => 'RH',  'Libelle' => 'Ressources Humaines', 'IdCS' => null]);
-        // id=3 — Comptabilité
         $serviceCPT = Service::create(['Abr' => 'CPT', 'Libelle' => 'Comptabilité',       'IdCS' => null]);
 
-        // ---------------------------------------------------------------
-        // 4. USERS
-        // ---------------------------------------------------------------
-
-        // --- RH Admin (full access, Chef of RH) ---
         $adminRH = User::create([
             'Matricule' => 'RH001',
             'Nom'       => 'Benali',
@@ -70,7 +56,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $serviceRH->update(['IdCS' => $adminRH->id]);
 
-        // --- Chef de Service — Informatique ---
         $chefIT = User::create([
             'Matricule' => 'IT001',
             'Nom'       => 'Moussaoui',
@@ -85,7 +70,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $serviceIT->update(['IdCS' => $chefIT->id]);
 
-        // --- Chef de Service — Comptabilité ---
         $chefCPT = User::create([
             'Matricule' => 'CPT001',
             'Nom'       => 'Tahiri',
@@ -100,7 +84,6 @@ class DatabaseSeeder extends Seeder
         ]);
         $serviceCPT->update(['IdCS' => $chefCPT->id]);
 
-        // --- Employee 1 — IT department ---
         $emp1 = User::create([
             'Matricule' => 'IT002',
             'Nom'       => 'Alaoui',
@@ -114,7 +97,6 @@ class DatabaseSeeder extends Seeder
             'password'  => Hash::make('password'),
         ]);
 
-        // --- Employee 2 — IT department ---
         $emp2 = User::create([
             'Matricule' => 'IT003',
             'Nom'       => 'Cherkaoui',
@@ -128,7 +110,6 @@ class DatabaseSeeder extends Seeder
             'password'  => Hash::make('password'),
         ]);
 
-        // --- Employee 3 — Comptabilité department ---
         $emp3 = User::create([
             'Matricule' => 'CPT002',
             'Nom'       => 'Raissouni',
@@ -142,11 +123,7 @@ class DatabaseSeeder extends Seeder
             'password'  => Hash::make('password'),
         ]);
 
-        // ---------------------------------------------------------------
-        // 5. ANNUAL LEAVE PLANS (planifications) for current year
-        // ---------------------------------------------------------------
 
-        // Employee 1 — plan approved by CS and RH
         $plan1 = Planification::create([
             'Année'      => now()->year,
             'DateDébut1' => now()->year . '-07-01',
@@ -160,7 +137,6 @@ class DatabaseSeeder extends Seeder
             'IdUser'     => $emp1->id,
         ]);
 
-        // Employee 2 — plan approved by CS, pending RH
         $plan2 = Planification::create([
             'Année'      => now()->year,
             'DateDébut1' => now()->year . '-08-01',
@@ -174,7 +150,6 @@ class DatabaseSeeder extends Seeder
             'IdUser'     => $emp2->id,
         ]);
 
-        // Employee 3 — plan pending both
         $plan3 = Planification::create([
             'Année'      => now()->year,
             'DateDébut1' => now()->year . '-09-01',
@@ -188,7 +163,6 @@ class DatabaseSeeder extends Seeder
             'IdUser'     => $emp3->id,
         ]);
 
-        // Chef IT — plan approved
         Planification::create([
             'Année'      => now()->year,
             'DateDébut1' => now()->year . '-07-15',
@@ -202,33 +176,27 @@ class DatabaseSeeder extends Seeder
             'IdUser'     => $chefIT->id,
         ]);
 
-        // ---------------------------------------------------------------
-        // 6. LEAVE REQUESTS (conges)
-        // ---------------------------------------------------------------
 
-        // Employee 1 — annual leave, linked to plan, fully approved
         Conge::create([
             'DateDébut' => now()->year . '-07-01',
             'nbJour'    => 10,
             'VCS'       => 1,
             'VRH'       => 1,
-            'IdType'    => 1, // Congé Annuel
+            'IdType'    => 1, 
             'IdPlan'    => $plan1->id,
             'IdUser'    => $emp1->id,
         ]);
 
-        // Employee 1 — administrative leave, pending
         Conge::create([
             'DateDébut' => now()->year . '-09-05',
             'nbJour'    => 2,
             'VCS'       => 0,
             'VRH'       => 0,
-            'IdType'    => 2, // Congé Administratif
+            'IdType'    => 2, 
             'IdPlan'    => null,
             'IdUser'    => $emp1->id,
         ]);
 
-        // Employee 2 — annual leave, approved by CS, pending RH
         Conge::create([
             'DateDébut' => now()->year . '-08-01',
             'nbJour'    => 15,
@@ -239,46 +207,42 @@ class DatabaseSeeder extends Seeder
             'IdUser'    => $emp2->id,
         ]);
 
-        // Employee 2 — exceptional leave, rejected by CS
         Conge::create([
             'DateDébut' => now()->year . '-05-10',
             'nbJour'    => 4,
             'VCS'       => -1,
             'VRH'       => 0,
-            'IdType'    => 4, // Congé Exceptionnel
+            'IdType'    => 4, 
             'IdPlan'    => null,
             'IdUser'    => $emp2->id,
         ]);
 
-        // Employee 3 — annual leave, pending both
         Conge::create([
             'DateDébut' => now()->year . '-09-01',
             'nbJour'    => 10,
             'VCS'       => 0,
             'VRH'       => 0,
-            'IdType'    => 1, // Congé Annuel
+            'IdType'    => 1, 
             'IdPlan'    => $plan3->id,
             'IdUser'    => $emp3->id,
         ]);
 
-        // Employee 3 — sick leave added directly by RH
         Conge::create([
             'DateDébut' => now()->year . '-03-15',
             'nbJour'    => 5,
             'VCS'       => -2,
             'VRH'       => -2,
-            'IdType'    => 3, // Congé Maladie
+            'IdType'    => 3, 
             'IdPlan'    => null,
             'IdUser'    => $emp3->id,
         ]);
 
-        // Chef IT — exceptional leave, fully approved
         Conge::create([
             'DateDébut' => now()->year . '-04-20',
             'nbJour'    => 3,
             'VCS'       => 1,
             'VRH'       => 1,
-            'IdType'    => 4, // Congé Exceptionnel
+            'IdType'    => 4, 
             'IdPlan'    => null,
             'IdUser'    => $chefIT->id,
         ]);
